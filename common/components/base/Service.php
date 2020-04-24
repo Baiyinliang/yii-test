@@ -11,6 +11,9 @@ use yii\helpers\StringHelper;
 
 class Service extends Component
 {
+
+    public static $instance;
+
     /**
      * 返回 service 单例
      *
@@ -18,11 +21,10 @@ class Service extends Component
      */
     public static function getInstance()
     {
-        static $instance;
-        if ($instance === null) {
-            $instance = new static();
+        if (empty(self::$instance[get_called_class()])) {
+            return self::$instance[get_called_class()] = new static();
         }
-        return $instance;
+        return self::$instance[get_called_class()];
     }
 
     /**
